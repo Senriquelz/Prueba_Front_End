@@ -1,0 +1,83 @@
+﻿@model Supermercado.Models.Factura
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Nueva orden de compra</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Supermercado.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+<h4>Factura</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="GenerarFactura" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdentificacionCliente" class="control-label"></label>
+                <input asp-for="IdentificacionCliente" class="form-control" />
+                <span asp-validation-for="IdentificacionCliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Establecimiento" class="control-label"></label>
+                <select asp-for="Establecimiento" class="form-control" />
+                <option value="001" selected>Sede Norte</option>
+                <option value="002">Sede Centro</option>
+                <option value="003">Sede Sur</option>
+                <span asp-validation-for="Establecimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PuntoEmision" class="control-label"></label>
+                <input asp-for="PuntoEmision" class="form-control" disabled value="001"/>
+                @*<select asp-for="PuntoEmision" class="form-control" />
+                <option value="001" selected>001</option>
+                <option value="002">Sede Centro</option>
+                <option value="003">Sede Sur</option>*@
+                <span asp-validation-for="PuntoEmision" class="text-danger"></span>
+            </div>
+
+            <hr />
+
+            @*Nota: NumeroFactura se agrega en base usando el idFactura que se genere al crear una nueva factura*@
+            @*<div class="form-group">
+                <label asp-for="NumeroFactura" class="control-label"></label>
+                <input asp-for="NumeroFactura" class="form-control" />
+                <span asp-validation-for="NumeroFactura" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
+                <label asp-for="Subtotal" class="control-label"></label>
+                <input asp-for="Subtotal" class="form-control" />
+                <span asp-validation-for="Subtotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalIVA" class="control-label"></label>
+                <input asp-for="TotalIVA" class="form-control" />
+                <span asp-validation-for="TotalIVA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Total" class="control-label"></label>
+                <input asp-for="Total" class="form-control" />
+                <span asp-validation-for="Total" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

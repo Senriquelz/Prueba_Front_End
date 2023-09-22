@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Supermercado.Models.Usuario
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Supermercado</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Supermercado.styles.css" asp-append-version="true" />
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Administrador" asp-action="Index">Index de Administrador</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @{
+                            //int? tipoUsuario = (int?)TempData["tipoUsuario"];
+            
+                            // Fuente: https://stackoverflow.com/questions/71137021/calling-httpcontext-sessionxx-in-net-core-cshtml-file
+                            @inject IHttpContextAccessor HttpContextAccessor
+                            int? tipoUsuario = HttpContextAccessor.HttpContext.Session.GetInt32("tipoUsuario");
+
+
+                            if (tipoUsuario == 1) // Administrador
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Administrador" asp-action="VistaCrearUsuarios">Crear usuarios</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Administrador" asp-action="UsuariosLista">Lista de usuarios</a>
+                                </li>
+                            }
+                        }
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Administrador" asp-action="ClientesLista">Lista de clientes</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Administrador" asp-action="VistaCrearClientes">Agregar clientes</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Administrador" asp-action="VistaCrearProductos">Agregar productos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    @{
+        // Fuente: https://developingsoftware.com/aspnet-mvc-how-to-display-a-message-after-calling-redirecttoaction/#:~:text=Create%20a%20view%20to%20display%20the%20message%20Create,%28%21String.IsNullOrEmpty%28message%29%29%20%7B%20%3Cdiv%20class%3D%22message%22%3E%20%3Cp%3E%40message%3C%2Fp%3E%20%3C%2Fdiv%3E%20%7D%20%7D
+        int? idUsuario = (int?)TempData["idUsuario"];
+        string? createUserMessage = TempData["CreateUserMessage"] as string;
+        if (!String.IsNullOrEmpty(createUserMessage))
+        {
+            if (idUsuario == 0)
+            {
+                <div id="mensajeFlotante" class="alert alert-danger fade show" role="alert">
+                    @createUserMessage
+                </div>
+            }
+            if (idUsuario > 0)
+            {
+                <div id="mensajeFlotante" class="alert alert-success fade show" role="alert">
+                    @createUserMessage
+                </div>
+            }
+        }
+    }
+
+    <p>Hola desde AdministradorIndex.cshtml</p>
+
+
+</body>
+
+</html>
